@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaluScanner.Core", "SaluScanner.Core\SaluScanner.Core.csproj", "{C00E2A80-ABF2-4598-A6D8-FB43260CC17E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleConsoleApp", "ExampleConsoleApp\ExampleConsoleApp.csproj", "{F63DE284-77C1-4056-B77E-A27033C0938D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C00E2A80-ABF2-4598-A6D8-FB43260CC17E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C00E2A80-ABF2-4598-A6D8-FB43260CC17E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C00E2A80-ABF2-4598-A6D8-FB43260CC17E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C00E2A80-ABF2-4598-A6D8-FB43260CC17E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F63DE284-77C1-4056-B77E-A27033C0938D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F63DE284-77C1-4056-B77E-A27033C0938D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F63DE284-77C1-4056-B77E-A27033C0938D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F63DE284-77C1-4056-B77E-A27033C0938D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E39357AD-6174-453B-B6E6-199E4886B03E}
+	EndGlobalSection
+EndGlobal
