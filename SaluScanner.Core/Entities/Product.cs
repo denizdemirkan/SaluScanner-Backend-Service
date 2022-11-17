@@ -12,7 +12,7 @@ namespace SaluScanner.Core.Entities
 
         public string Barcode { get; set; }
 
-        // Navigations
+        // Navigations & Relations
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
