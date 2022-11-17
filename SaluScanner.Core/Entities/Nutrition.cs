@@ -9,9 +9,13 @@ namespace SaluScanner.Core.Entities
     public class Nutrition : IEntity
     {
         public int Id { get; set; }
+        
+        // gram in 100 grams
         public float Carbonhydrate { get; set; }
         public float Fat { get; set; }
         public float Protein { get; set; }
+
+        // miligram in 100 grams
         public float VitamineA { get; set; }
         public float VitamineB { get; set; }
         public float VitamineC { get; set; }
