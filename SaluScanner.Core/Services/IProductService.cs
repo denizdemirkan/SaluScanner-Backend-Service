@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaluScanner.Core.Repositories
+namespace SaluScanner.Core.Services
 {
-    public interface IProductRepository : IGenericRepository<Product>
+    public interface IProductService : IGenericService<Product>
     {
         Task<Product> GetProductByBarcodeAsync(string barcode);
+
     }
 }
