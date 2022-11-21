@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SaluScanner.Core.Repositories;
 using SaluScanner.Core.Services;
 using SaluScanner.Core.UnitOfWorks;
 using SaluScanner.Repository.DbContexts;
@@ -16,10 +17,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Unit of Work Dependency Injection
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Repository Layer Dependency Injection
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
+
+// Service Layer Dependency Injection
 builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 builder.Services.AddScoped(typeof(IProductService), typeof(ProductService));
 
+// Swagger
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<SqlServerDbContext>(x =>
 {
@@ -38,6 +48,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
 }
+
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Test");
+});
 
 app.UseHttpsRedirection();
 

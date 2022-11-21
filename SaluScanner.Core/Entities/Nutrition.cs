@@ -14,6 +14,7 @@ namespace SaluScanner.Core.Entities
         public float Carbonhydrate { get; set; }
         public float Fat { get; set; }
         public float Protein { get; set; }
+        public float Calori { get; set; }
 
         // miligram in 100 grams
         public float VitamineA { get; set; }
