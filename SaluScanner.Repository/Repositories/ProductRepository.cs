@@ -13,8 +13,13 @@ namespace SaluScanner.Repository.Repositories
 
         public async Task<Product> GetProductByBarcodeAsync(string barcode)
         {
-            var filteredProduct = dbContext.Products.Where(p => p.Barcode == barcode);
-            
+            var filteredProduct = dbContext.Products.Where(p => p.Barcode == barcode)
+                .Include(p => p.Nutrition)
+                .Include(p => p.Certificates)
+                .Include(p => p.ProductDetail);
+
+           // Console.WriteLine("--------------Certificate Count: "+filteredProduct.First().Certificates.Count);
+
             return await filteredProduct.FirstOrDefaultAsync();
         }
     }

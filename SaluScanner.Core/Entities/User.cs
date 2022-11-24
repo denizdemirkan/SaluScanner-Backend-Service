@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SaluScanner.Core.Entities
+﻿namespace SaluScanner.Core.Entities
 {
     public class User : IEntity
     {
@@ -14,9 +8,16 @@ namespace SaluScanner.Core.Entities
         public string Password { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        public int? Height { get; set; }
+        public int? Weight { get; set; }
         public bool IsEmailConfirmed { get; set; }
 
+        public User()
+        {
+            this.Allergies = new HashSet<Allergen>();
+        }
+
         // Navigations & Relations
-        List<Allergen> Allergies { get; set; }
+        ICollection<Allergen> Allergies { get; set; }
     }
 }

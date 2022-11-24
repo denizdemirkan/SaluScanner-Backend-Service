@@ -13,7 +13,14 @@ namespace SaluScanner.Core.Entities
         public string? ComponentDescription { get; set; }
         public bool IsAnimalProduct { get; set; }
 
+        public Content()
+        {
+            this.Products = new HashSet<Product>();
+        }
+
         public int? AllergenId { get; set; }
         public Allergen? Allergen { get; set; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }

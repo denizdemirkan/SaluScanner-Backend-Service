@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SaluScanner.Core.Entities
+﻿namespace SaluScanner.Core.Entities
 {
     public class Product : IEntity
     {
         public int Id { get; set; }
 
         public string Barcode { get; set; }
+
+        public Product()
+        {
+            this.Certificates = new HashSet<Certificate>();
+            this.Contents = new HashSet<Content>();
+        }
 
         // Navigations & Relations
         public int CategoryId { get; set; }
@@ -22,8 +22,8 @@ namespace SaluScanner.Core.Entities
         public int ProductDetailId { get; set; }
         public ProductDetail ProductDetail { get; set; }
 
-        public List<Certificate> Certificates { get; set; }
+        public ICollection<Certificate>? Certificates { get; set; }
 
-        public List<Content> Contents { get; set; }
+        public ICollection<Content> Contents { get; set; }
     }
 }

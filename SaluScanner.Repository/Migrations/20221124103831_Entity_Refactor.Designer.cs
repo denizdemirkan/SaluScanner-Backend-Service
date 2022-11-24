@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaluScanner.Repository.DbContexts;
 
@@ -11,9 +12,11 @@ using SaluScanner.Repository.DbContexts;
 namespace SaluScanner.Repository.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    partial class SqlServerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221124103831_Entity_Refactor")]
+    partial class EntityRefactor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,36 +24,6 @@ namespace SaluScanner.Repository.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CertificateProduct", b =>
-                {
-                    b.Property<int>("CertificatesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CertificatesId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("CertificateProduct");
-                });
-
-            modelBuilder.Entity("ContentProduct", b =>
-                {
-                    b.Property<int>("ContentsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ContentsId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("ContentProduct");
-                });
 
             modelBuilder.Entity("SaluScanner.Core.Entities.Allergen", b =>
                 {
@@ -105,7 +78,12 @@ namespace SaluScanner.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Certificates");
                 });
@@ -131,9 +109,14 @@ namespace SaluScanner.Repository.Migrations
                     b.Property<bool>("IsAnimalProduct")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AllergenId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Contents");
                 });
@@ -238,34 +221,11 @@ namespace SaluScanner.Repository.Migrations
                     b.ToTable("ProductDetails");
                 });
 
-            modelBuilder.Entity("CertificateProduct", b =>
+            modelBuilder.Entity("SaluScanner.Core.Entities.Certificate", b =>
                 {
-                    b.HasOne("SaluScanner.Core.Entities.Certificate", null)
-                        .WithMany()
-                        .HasForeignKey("CertificatesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SaluScanner.Core.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ContentProduct", b =>
-                {
-                    b.HasOne("SaluScanner.Core.Entities.Content", null)
-                        .WithMany()
-                        .HasForeignKey("ContentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SaluScanner.Core.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Certificates")
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("SaluScanner.Core.Entities.Content", b =>
@@ -273,6 +233,10 @@ namespace SaluScanner.Repository.Migrations
                     b.HasOne("SaluScanner.Core.Entities.Allergen", "Allergen")
                         .WithMany()
                         .HasForeignKey("AllergenId");
+
+                    b.HasOne("SaluScanner.Core.Entities.Product", null)
+                        .WithMany("Contents")
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("Allergen");
                 });
@@ -307,6 +271,13 @@ namespace SaluScanner.Repository.Migrations
             modelBuilder.Entity("SaluScanner.Core.Entities.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("SaluScanner.Core.Entities.Product", b =>
+                {
+                    b.Navigation("Certificates");
+
+                    b.Navigation("Contents");
                 });
 #pragma warning restore 612, 618
         }
