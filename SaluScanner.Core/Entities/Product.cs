@@ -25,5 +25,6 @@
         public ICollection<Certificate>? Certificates { get; set; }
 
         public ICollection<Content> Contents { get; set; }
+        public Company Companies { get; set; }
     }
 }

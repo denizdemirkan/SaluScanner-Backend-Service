@@ -18,6 +18,7 @@ namespace SaluScanner.Repository.DbContexts
         public DbSet<Content> Contents { get; set; }
         public DbSet<Nutrition> Nutritions { get; set; }
         public DbSet<ProductDetail> ProductDetails { get; set; }
+        public DbSet<Company> Companies { get; set; }
 
         public SqlServerDbContext(DbContextOptions<SqlServerDbContext> options) : base(options)
         {

@@ -5,6 +5,7 @@ using SaluScanner.Core.UnitOfWorks;
 using SaluScanner.Repository.DbContexts;
 using SaluScanner.Repository.Repositories;
 using SaluScanner.Repository.UnitOfWorks;
+using SaluScanner.Service.Mapping;
 using SaluScanner.Service.Services;
 using System.Reflection;
 using System.Text.Json.Serialization;
@@ -30,6 +31,9 @@ builder.Services.AddScoped(typeof(IProductRepository), typeof(ProductRepository)
 // Service Layer Dependency Injection
 builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 builder.Services.AddScoped(typeof(IProductService), typeof(ProductService));
+
+//AutoMapper
+builder.Services.AddAutoMapper(typeof(MapProfile));
 
 // Swagger
 builder.Services.AddSwaggerGen();
