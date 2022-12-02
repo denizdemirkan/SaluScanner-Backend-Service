@@ -11,8 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mapping\" />
     <Folder Include="Validations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
   </ItemGroup>
 
 </Project>

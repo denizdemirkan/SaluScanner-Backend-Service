@@ -10,5 +10,6 @@ namespace SaluScanner.Core.Repositories
     public interface IProductRepository : IGenericRepository<Product>
     {
         Task<Product> GetProductByBarcodeAsync(string barcode);
+        Task<List<Product>> GetCertificateByProductWithBarcodeAsync(string barcode);
     }
 }

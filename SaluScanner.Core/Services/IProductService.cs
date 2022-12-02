@@ -1,4 +1,5 @@
-﻿using SaluScanner.Core.Entities;
+﻿using SaluScanner.Core.DTOs;
+using SaluScanner.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace SaluScanner.Core.Services
     public interface IProductService : IGenericService<Product>
     {
         Task<Product> GetProductByBarcodeAsync(string barcode);
+        Task<List<ProductWithCertificateDto>> GetCertificateByProductWithBarcodeAsync(string barcode);
+
 
     }
 }

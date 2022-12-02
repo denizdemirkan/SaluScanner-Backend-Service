@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaluScanner.Repository.DbContexts;
 
@@ -11,9 +12,11 @@ using SaluScanner.Repository.DbContexts;
 namespace SaluScanner.Repository.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    partial class SqlServerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221124142309_Db_Created")]
+    partial class DbCreated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,39 +113,6 @@ namespace SaluScanner.Repository.Migrations
                     b.ToTable("Certificates");
                 });
 
-            modelBuilder.Entity("SaluScanner.Core.Entities.Company", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("About")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ContactNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Mail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Website999")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Companies");
-                });
-
             modelBuilder.Entity("SaluScanner.Core.Entities.Content", b =>
                 {
                     b.Property<int>("Id")
@@ -229,9 +199,6 @@ namespace SaluScanner.Repository.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CompaniesId")
-                        .HasColumnType("int");
-
                     b.Property<int>("NutritionId")
                         .HasColumnType("int");
 
@@ -241,8 +208,6 @@ namespace SaluScanner.Repository.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("CompaniesId");
 
                     b.HasIndex("NutritionId");
 
@@ -323,12 +288,6 @@ namespace SaluScanner.Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SaluScanner.Core.Entities.Company", "Companies")
-                        .WithMany("Products")
-                        .HasForeignKey("CompaniesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SaluScanner.Core.Entities.Nutrition", "Nutrition")
                         .WithMany()
                         .HasForeignKey("NutritionId")
@@ -343,19 +302,12 @@ namespace SaluScanner.Repository.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("Companies");
-
                     b.Navigation("Nutrition");
 
                     b.Navigation("ProductDetail");
                 });
 
             modelBuilder.Entity("SaluScanner.Core.Entities.Category", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("SaluScanner.Core.Entities.Company", b =>
                 {
                     b.Navigation("Products");
                 });
