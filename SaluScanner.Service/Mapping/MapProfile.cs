@@ -17,6 +17,9 @@ namespace SaluScanner.Service.Mapping
             CreateMap<Certificate,CertificateDto>().ReverseMap();
             CreateMap<Product,ProductWithCertificateDto>();
             CreateMap<ProductWithCertificateDto, Product>();
-        }        
+
+            CreateMap<UserDto, User>().ReverseMap();
+
+        }
     }
 }

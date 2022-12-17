@@ -12,8 +12,6 @@ namespace SaluScanner.API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        // It must be service that can be use in Controller level but it is an example
-
         private readonly IProductService _service;
 
         public ProductController(IProductService _service)
