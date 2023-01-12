@@ -28,13 +28,15 @@ namespace SaluScanner.API.Controllers
             return Ok(products);
         }
 
-      /*  [HttpGet("{barcode}")]
+         /*
+         [HttpGet("{barcode}")]
          public async Task<IActionResult> GetByBarcode(String barcode)
          {
              var product = await _service.GetProductByBarcodeAsync(barcode);
 
              return Ok(product);
-         }*/
+         }
+         */
 
 
         [HttpGet("{barcode}")]

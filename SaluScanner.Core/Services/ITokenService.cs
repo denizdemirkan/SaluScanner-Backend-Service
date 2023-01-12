@@ -11,7 +11,7 @@ namespace SaluScanner.AuthServer.Core.Service
 {
     public interface ITokenService
     {
-        // This is an internal class, that is creating token for external AuthenticationService to distribute to other API's.
+        // This is an "internal use" class, that is creating token for external AuthenticationService to distribute to other API's.
         TokenDto CreateTokenForUser(User user);
         NonUserTokenDto CreateTokenForNonUser(Client client);
     }
