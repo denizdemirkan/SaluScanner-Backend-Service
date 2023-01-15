@@ -12,7 +12,7 @@ namespace SaluScanner.Core.Services
     public interface IProductService : IGenericService<Product, ProductDto>
     {
         Task<Response<ProductDto>> GetProductByBarcodeAsync(string barcode);
-        Task<Response<List<ProductWithCertificateDto>>> GetCertificateByProductWithBarcodeAsync(string barcode);
+       // Task<Response<ProductWithCertificateDto>> GetCertificateByProductWithBarcodeAsync(string barcode);
 
 
     }

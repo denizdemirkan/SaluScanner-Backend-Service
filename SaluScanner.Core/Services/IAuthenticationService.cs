@@ -16,6 +16,6 @@ namespace SaluScanner.Core.Service
 
         Task<Response<NoDataDto>> RevokeRefreshTokenAsync(string refreshToken);
 
-        Task<Response<NonUserTokenDto>> CreateTokenByClient(NonUserLoginDto nonUserLoginDto);
+        Response<NonUserTokenDto> CreateTokenByNonUser(NonUserLoginDto nonUserLoginDto);
     }
 }

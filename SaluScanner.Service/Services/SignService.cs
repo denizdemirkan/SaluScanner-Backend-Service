@@ -11,7 +11,7 @@ namespace SaluScanner.Service.Services
     {
         public static SecurityKey GetSymmetricSecurityKey(string securityKey)
         {
-            return new SecurityKey(Encoding.UTF8.GetBytes(securityKey);
+            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey));
         }
     }
 }

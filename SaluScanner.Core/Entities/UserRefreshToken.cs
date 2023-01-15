@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SaluScanner.Core.Entities
 {
-    public class UserRefreshToken
+    public class UserRefreshToken : IEntity
     {
         public string UserId { get; set; }
         public string Token { get; set; }
