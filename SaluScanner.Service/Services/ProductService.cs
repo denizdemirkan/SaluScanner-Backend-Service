@@ -4,6 +4,8 @@ using SaluScanner.Core.Entities;
 using SaluScanner.Core.Repositories;
 using SaluScanner.Core.Services;
 using SaluScanner.Core.UnitOfWorks;
+using SaluScanner.Service.Mapping;
+using SaluScanner.SharedLibrary.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace SaluScanner.Service.Services
 {
-    public class ProductService : GenericService<Product>, IProductService
+    public class ProductService : GenericService<Product, ProductDto>, IProductService
     {
         protected readonly IProductRepository _repository;
         private readonly IMapper _mapper;
@@ -23,16 +25,18 @@ namespace SaluScanner.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<List<ProductWithCertificateDto>> GetCertificateByProductWithBarcodeAsync(string barcode)
+        public async Task<Response<ProductDto>> GetProductByBarcodeAsync(string barcode)
         {
-           var products =  await _repository.GetCertificateByProductWithBarcodeAsync(barcode);
-           return  _mapper.Map<List<ProductWithCertificateDto>>(products);
-            
-        }
+            var entity = await _repository.GetProductByBarcodeAsync(barcode);
 
-        public async Task<Product> GetProductByBarcodeAsync(string barcode)
-        {
-            return await _repository.GetProductByBarcodeAsync(barcode);
+            if(entity == null)
+            {
+                return Response<ProductDto>.Fail("Barcode Not Found", 404, true);
+            }
+
+            var dto = ObjectMapper.Mapper.Map<ProductDto>(entity);
+
+            return Response<ProductDto>.Success(dto, 200);
         }
     }
 }

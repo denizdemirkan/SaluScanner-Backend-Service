@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SaluScanner.Core.DTOs
 {
-    public class CertificateDto
+    public class CertificateDto : IDto
     {
         public int Id { get; set; }
         public string CertificateName { get; set; }

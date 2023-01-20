@@ -9,6 +9,6 @@ namespace SaluScanner.Core.UnitOfWorks
     public interface IUnitOfWork
     {
         Task CommitAsync();
-        void Async();
+        void Commit();
     }
 }

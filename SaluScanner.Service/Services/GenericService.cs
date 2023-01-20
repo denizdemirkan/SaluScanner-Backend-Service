@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SaluScanner.Core.DTOs;
 using SaluScanner.Core.Entities;
 using SaluScanner.Core.Repositories;
 using SaluScanner.Core.Services;
 using SaluScanner.Core.UnitOfWorks;
+using SaluScanner.Service.Mapping;
+using SaluScanner.SharedLibrary.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +15,9 @@ using System.Threading.Tasks;
 
 namespace SaluScanner.Service.Services
 {
-    public class GenericService<TEntity> : IGenericService<TEntity> where TEntity : class, IEntity, new()
+    public class GenericService<TEntity, TDto> : IGenericService<TEntity, TDto> 
+        where TEntity : class, IEntity, new()
+        where TDto : class, IDto, new()
     {
         protected readonly IGenericRepository<TEntity> _genericRepository;
         protected readonly IUnitOfWork _unitOfWork;
@@ -23,57 +28,64 @@ namespace SaluScanner.Service.Services
             this._unitOfWork = _unitOfWork;
         }
 
-        public async Task<TEntity> AddAsync(TEntity entity)
+        public async Task<Response<TDto>> AddAsync(TDto dto)
         {
+            var entity = ObjectMapper.Mapper.Map<TEntity>(dto);
+
             await _genericRepository.AddAsync(entity);
+
             await _unitOfWork.CommitAsync();
-            return entity;
+
+            return Response<TDto>.Success(dto,200);
 
         }
 
-        public Task AddRangeAsyn(IEnumerable<TEntity> entities)
+        public async Task<Response<IEnumerable<TDto>>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var dtos = ObjectMapper.Mapper.Map<List<TDto>>(await _genericRepository.GetAll().ToListAsync()); 
+
+            return Response<IEnumerable<TDto>>.Success(dtos, 200);
         }
 
-        public Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression)
+        public async Task<Response<TDto>> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = await _genericRepository.GetByIdAsync(id);
+
+            var dto = ObjectMapper.Mapper.Map<TDto>(entity);
+
+            return Response<TDto>.Success(dto,200);
         }
 
-        public IQueryable<TEntity> GetAll()
+        public async Task<Response<NoDataDto>> RemoveById(int id)
         {
-            throw new NotImplementedException();
+            var entity = await _genericRepository.GetByIdAsync(id);
+
+            if(entity == null)
+            {
+                return Response<NoDataDto>.Fail("ID Not Found", 404, true);
+            }
+
+            _genericRepository.Remove(entity);
+
+            await _unitOfWork.CommitAsync();
+
+            return Response<NoDataDto>.Success(204);
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<Response<NoDataDto>> Update(TDto dto)
         {
-            return await _genericRepository.GetAll().ToListAsync();
-        }
+            var entity = ObjectMapper.Mapper.Map<TEntity>(dto);
 
-        public Task<TEntity> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+            if (entity == null)
+            {
+                return Response<NoDataDto>.Fail("Not Found", 404, true);
+            }
 
-        public Task RemoveAsync(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
+            _genericRepository.Update(entity);
 
-        public Task RemoveRangeAsync(IEnumerable<TEntity> entities)
-        {
-            throw new NotImplementedException();
-        }
+            await _unitOfWork.CommitAsync();
 
-        public Task UpdateAsync(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> expression)
-        {
-            throw new NotImplementedException();
+            return Response<NoDataDto>.Success(204);
         }
     }
 }

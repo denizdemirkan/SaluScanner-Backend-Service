@@ -17,7 +17,7 @@ namespace SaluScanner.Repository.UnitOfWorks
             this.dbContext = dbContext;
         }
 
-        public void Async()
+        public void Commit()
         {
             dbContext.SaveChanges();
         }
