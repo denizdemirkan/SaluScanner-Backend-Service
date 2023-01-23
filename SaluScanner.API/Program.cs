@@ -29,7 +29,7 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 builder.Services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
 
 // Service Layer Dependency Injection
-builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+//builder.Services.AddScoped(typeof(IGenericService<TEntity, TDto>), typeof(GenericService<>));
 builder.Services.AddScoped(typeof(IProductService), typeof(ProductService));
 
 //AutoMapper

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SaluScanner.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,8 +11,10 @@ using System.Threading.Tasks;
 
 namespace SaluScanner.Repository.DbContexts
 {
-    public class SqlServerDbContext : DbContext
+    public class SqlServerDbContext : IdentityDbContext<User, IdentityRole, string>
     {
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Allergen> Allergens { get; set; }
@@ -23,6 +27,12 @@ namespace SaluScanner.Repository.DbContexts
         public SqlServerDbContext(DbContextOptions<SqlServerDbContext> options) : base(options)
         {
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("server=localhost; Database=SaluScannerFinalDb; Trusted_Connection=SSPI; Encrypt=false; TrustServerCertificate=true");
+        }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

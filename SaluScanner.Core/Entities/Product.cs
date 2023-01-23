@@ -13,6 +13,9 @@
         }
 
         // Navigations & Relations
+        public int CompanyId { get; set; }
+        public Company Company { get; set; }
+
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
@@ -25,6 +28,5 @@
         public ICollection<Certificate>? Certificates { get; set; }
 
         public ICollection<Content> Contents { get; set; }
-        public Company Companies { get; set; }
     }
 }

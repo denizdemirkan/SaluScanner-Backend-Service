@@ -22,14 +22,5 @@ namespace SaluScanner.Repository.Repositories
 
             return await filteredProduct.FirstOrDefaultAsync();
         }
-
-        public async Task<List<Product>> GetCertificateByProductWithBarcodeAsync(string barcode)
-        {
-            var certificateProduct = dbContext.Products.Where(p => p.Barcode == barcode)
-              .Include(p => p.Certificates)
-              .Include(p=>p.ProductDetail); ;
-
-            return await certificateProduct.ToListAsync();
-        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SaluScanner.Core.Entities;
+using SaluScanner.SharedLibrary.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +9,13 @@ using System.Threading.Tasks;
 
 namespace SaluScanner.Core.Services
 {
-    public interface IGenericService<TEntity> where TEntity : class, IEntity, new()
+    public interface IGenericService<TEntity, TDto> where TEntity : class where TDto : class
     {
-        Task<TEntity> GetByIdAsync(int id);
-        Task<IEnumerable<TEntity>> GetAllAsync();
-        IQueryable<TEntity> GetAll();
-        IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> expression);
-        Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression);
-        Task<TEntity> AddAsync(TEntity entity);
-        Task AddRangeAsyn(IEnumerable<TEntity> entities);
-        Task UpdateAsync(TEntity entity);
-        Task RemoveAsync(TEntity entity);
-        Task RemoveRangeAsync(IEnumerable<TEntity> entities);
+        Task<Response<TDto>> GetByIdAsync(int id);
+        // this is business layer so there is no need for IQueryable anymore after this layer.
+        Task<Response<IEnumerable<TDto>>> GetAllAsync();
+        Task<Response<TDto>> AddAsync(TDto entity);
+        Task<Response<NoDataDto>> RemoveById(int id);
+        Task<Response<NoDataDto>> Update(TDto entity);
     }
 }

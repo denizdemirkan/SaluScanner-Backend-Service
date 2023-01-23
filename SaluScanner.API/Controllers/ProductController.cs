@@ -12,8 +12,6 @@ namespace SaluScanner.API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        // It must be service that can be use in Controller level but it is an example
-
         private readonly IProductService _service;
 
         public ProductController(IProductService _service)
@@ -30,29 +28,31 @@ namespace SaluScanner.API.Controllers
             return Ok(products);
         }
 
-      /*  [HttpGet("{barcode}")]
+         /*
+         [HttpGet("{barcode}")]
          public async Task<IActionResult> GetByBarcode(String barcode)
          {
              var product = await _service.GetProductByBarcodeAsync(barcode);
 
              return Ok(product);
-         }*/
+         }
+         */
 
 
-        [HttpGet("{barcode}")]
-        public async Task<IActionResult> GetByCertificateProduct(String barcode)
-        {
-            var certificateProducts = await _service.GetCertificateByProductWithBarcodeAsync(barcode);
-            return Ok(certificateProducts);
-        }
+        //[HttpGet("{barcode}")]
+        //public async Task<IActionResult> GetByCertificateProduct(String barcode)
+        //{
+        //    var certificateProducts = await _service.GetCertificateByProductWithBarcodeAsync(barcode);
+        //    return Ok(certificateProducts);
+        //}
 
 
         [HttpPost]
-        public async Task<IActionResult> Add(Product product)
+        public async Task<IActionResult> Add(ProductDto productDto)
         {
-            await _service.AddAsync(product);
+            await _service.AddAsync(productDto);
 
-            return Ok(product);
+            return Ok(productDto);
         }
 
     }
