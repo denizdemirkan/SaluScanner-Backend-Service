@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace SaluScanner.Core.DTOs
 {
-    public class UserDto : IDto
+    public class RefreshTokenDto : IDto
     {
-        public string Id { get; set; }
-        public string Email { get; set; }
-        public string UserName { get; set; }
+        public string RefreshToken { get; set; }
     }
 }

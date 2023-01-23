@@ -71,7 +71,6 @@ namespace SaluScanner.Service.Services
         {
             var accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOption.AccessTokenExpiration);
             var refreshTokenExpiration = DateTime.Now.AddMinutes(_tokenOption.RefreshTokenExpiration);
-
             var securityKey = SignService.GetSymmetricSecurityKey(_tokenOption.SecurityKey);
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
@@ -79,7 +78,7 @@ namespace SaluScanner.Service.Services
             (
                 issuer: _tokenOption.Issuer,
                 expires: accessTokenExpiration,
-                // available until now
+                // available after now
                 notBefore: DateTime.Now,
                 claims: GetClaimsByUser(user, _tokenOption.Audience),
                 signingCredentials: signingCredentials

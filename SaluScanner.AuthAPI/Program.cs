@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SaluScanner.AuthServer.Core.Service;
@@ -11,12 +12,12 @@ using SaluScanner.Repository.DbContexts;
 using SaluScanner.Repository.Repositories;
 using SaluScanner.Repository.UnitOfWorks;
 using SaluScanner.Service.Services;
+using SaluScanner.SharedLibrary.Extensions;
 using SaluScanner.SharedLibrary.Token;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// DI Register
+// DI Register of Services
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
@@ -25,6 +26,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericService<,>),typeof(GenericService<,>));
 
+// DI Register of UnitOfWork
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // DbContext
@@ -43,11 +45,22 @@ builder.Services.AddIdentity<User, IdentityRole>(Opt =>
     Opt.Password.RequireNonAlphanumeric= false;
 }).AddEntityFrameworkStores<SqlServerDbContext>().AddDefaultTokenProviders();
 
-
 // Options Pattern !
 // DI of CustomTokenOption object. Take what it needs from appsettings.json
-builder.Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
-builder.Configuration.GetSection("Clients").Get<List<Client>>();
+//builder.Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
+//builder.Configuration.GetSection("Clients").Get<List<Client>>();
+
+builder.Services.Configure<CustomTokenOption>(
+    builder.Configuration.GetSection("TokenOption"));
+builder.Services.Configure<List<Client>>(
+    builder.Configuration.GetSection("Clients"));
+
+
+// Verify Token
+var tokenOptions = builder.Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
+
+// Add Auth
+builder.Services.AddCustomAuth(tokenOptions);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -65,6 +78,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

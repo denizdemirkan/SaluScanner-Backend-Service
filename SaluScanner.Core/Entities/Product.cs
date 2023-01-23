@@ -25,7 +25,7 @@
         public int ProductDetailId { get; set; }
         public ProductDetail ProductDetail { get; set; }
 
-        public ICollection<Certificate>? Certificates { get; set; }
+        public ICollection<Certificate> Certificates { get; set; }
 
         public ICollection<Content> Contents { get; set; }
     }

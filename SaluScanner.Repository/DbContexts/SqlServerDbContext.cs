@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SaluScanner.Core.Entities;
 using System;
@@ -10,10 +11,11 @@ using System.Threading.Tasks;
 
 namespace SaluScanner.Repository.DbContexts
 {
-    public class SqlServerDbContext : IdentityDbContext
+    public class SqlServerDbContext : IdentityDbContext<User, IdentityRole, string>
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> UsersApp { get; set; }
         public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
+
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Allergen> Allergens { get; set; }

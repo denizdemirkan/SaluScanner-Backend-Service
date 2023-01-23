@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaluScanner.Service.Services
+namespace SaluScanner.SharedLibrary.Services
 {
     public static class SignService
     {

@@ -17,12 +17,14 @@ namespace SaluScanner.SharedLibrary.DTOs
 
         public ErrorDto(string error)
         {
-            this.Errors.Add(error);
+            Errors = new List<String>();
+            Errors.Add(error);
         }
 
         public ErrorDto(List<string> errors)
         {
-            this.Errors=errors;
+            Errors = new List<String>();
+            Errors =errors;
         }
     }
 }

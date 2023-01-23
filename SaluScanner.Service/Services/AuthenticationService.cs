@@ -38,7 +38,8 @@ namespace SaluScanner.Service.Services
         {
             if (loginDto == null)
             {
-                throw new ArgumentNullException(nameof(loginDto));
+                //throw new ArgumentNullException(nameof(loginDto));
+                return Response<TokenDto>.Fail("No Argument Given!", 404);
             }
 
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
@@ -111,7 +112,7 @@ namespace SaluScanner.Service.Services
             var tokenDto = _tokenService.CreateTokenForUser(user);
 
             existRefreshToken.Token = tokenDto.RefreshToken;
-            existRefreshToken.Expiration = tokenDto.AccessTokenExpiration;
+            existRefreshToken.Expiration = tokenDto.RefreshTokenExpiration;
 
             await _unitOfWork.CommitAsync();
 
@@ -124,7 +125,7 @@ namespace SaluScanner.Service.Services
 
             if(existRefreshToken == null)
             {
-                return Response<NoDataDto>.Fail("Refresh token not found.", 404);
+                return Response<NoDataDto>.Fail("Refresh token already not found.", 404);
             }
 
             _userRefreshTokenRepository.Remove(existRefreshToken);

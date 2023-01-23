@@ -17,11 +17,11 @@ namespace SaluScanner.Core.Entities
         public float Calori { get; set; }
 
         // miligram in 100 grams
-        public float VitamineA { get; set; }
-        public float VitamineB { get; set; }
-        public float VitamineC { get; set; }
-        public float VitamineD { get; set; }
-        public float VitamineE { get; set; }
-        public float VitamineK { get; set; }
+        public float? VitamineA { get; set; }
+        public float? VitamineB { get; set; }
+        public float? VitamineC { get; set; }
+        public float? VitamineD { get; set; }
+        public float? VitamineE { get; set; }
+        public float? VitamineK { get; set; }
     }
 }

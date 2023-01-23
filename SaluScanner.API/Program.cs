@@ -7,6 +7,8 @@ using SaluScanner.Repository.Repositories;
 using SaluScanner.Repository.UnitOfWorks;
 using SaluScanner.Service.Mapping;
 using SaluScanner.Service.Services;
+using SaluScanner.SharedLibrary.Extensions;
+using SaluScanner.SharedLibrary.Token;
 using System.Reflection;
 using System.Text.Json.Serialization;
 
@@ -34,6 +36,15 @@ builder.Services.AddScoped(typeof(IProductService), typeof(ProductService));
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MapProfile));
+
+// Option Pattern
+builder.Services.Configure<CustomTokenOption>(
+    builder.Configuration.GetSection("TokenOption"));
+
+var tokenOptions = builder.Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
+
+// Add Auth
+builder.Services.AddCustomAuth(tokenOptions);
 
 // Swagger
 builder.Services.AddSwaggerGen();
@@ -63,6 +74,7 @@ app.UseSwaggerUI(c =>
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
