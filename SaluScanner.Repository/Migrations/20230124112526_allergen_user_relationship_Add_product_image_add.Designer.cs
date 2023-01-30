@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaluScanner.Repository.DbContexts;
 
@@ -11,9 +12,11 @@ using SaluScanner.Repository.DbContexts;
 namespace SaluScanner.Repository.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    partial class SqlServerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230124112526_allergen_user_relationship_Add_product_image_add")]
+    partial class allergenuserrelationshipAddproductimageadd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -447,9 +450,6 @@ namespace SaluScanner.Repository.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<float?>("Height")
-                        .HasColumnType("real");
-
                     b.Property<bool?>("IsDarkMode")
                         .HasColumnType("bit");
 
@@ -487,9 +487,6 @@ namespace SaluScanner.Repository.Migrations
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<float?>("Weight")
-                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
