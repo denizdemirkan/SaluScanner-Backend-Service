@@ -32,6 +32,7 @@ builder.Services.AddScoped(typeof(IProductRepository), typeof(ProductRepository)
 
 // Service Layer Dependency Injection
 //builder.Services.AddScoped(typeof(IGenericService<TEntity, TDto>), typeof(GenericService<>));
+builder.Services.AddScoped(typeof(IProductSaveService), typeof(ProductSaveService));
 builder.Services.AddScoped(typeof(IProductService), typeof(ProductService));
 
 //AutoMapper
@@ -43,12 +44,13 @@ builder.Services.Configure<CustomTokenOption>(
 
 var tokenOptions = builder.Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
 
-// Add Auth
+// Add Auth as Custom Extension
 builder.Services.AddCustomAuth(tokenOptions);
 
 // Swagger
 builder.Services.AddSwaggerGen();
 
+// No need as long as AuthAPI makes it
 builder.Services.AddDbContext<SqlServerDbContext>(x =>
 {
     x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnectionString"), option =>

@@ -16,6 +16,7 @@ namespace SaluScanner.API.Controllers
     public class ProductController : CustomBaseController
     {
         private readonly IProductService _service;
+        private readonly IProductSaveService _saveService;
 
         public ProductController(IProductService _service)
         {
@@ -30,9 +31,9 @@ namespace SaluScanner.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(ProductDto productDto)
+        public async Task<IActionResult> Save(SaveProductDto saveProductDto)
         {
-            return ActionResultInstance(await _service.AddAsync(productDto));
+            return ActionResultInstance(await _saveService.AddAsync(saveProductDto));
         }
 
         [HttpPut]

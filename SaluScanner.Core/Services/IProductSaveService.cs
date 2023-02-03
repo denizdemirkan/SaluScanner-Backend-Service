@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace SaluScanner.Core.Services
 {
-    public interface IProductService : IGenericService<Product, ProductDto>
+    public interface IProductSaveService : IGenericService<Product, SaveProductDto>
     {
-        Task<Response<ProductDto>> GetProductByBarcodeAsync(string barcode);
-       // Task<Response<ProductWithCertificateDto>> GetCertificateByProductWithBarcodeAsync(string barcode);
+        Task<Response<NoDataDto>> SaveAsync(SaveProductDto saveProductDto);
     }
 }

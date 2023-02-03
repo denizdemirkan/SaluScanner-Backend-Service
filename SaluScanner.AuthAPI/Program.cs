@@ -59,7 +59,7 @@ builder.Services.Configure<List<Client>>(
 // Verify Token
 var tokenOptions = builder.Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
 
-// Add Auth
+// Add Auth with Custom Extension
 builder.Services.AddCustomAuth(tokenOptions);
 
 builder.Services.AddControllers();
